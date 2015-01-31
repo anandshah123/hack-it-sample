@@ -1,5 +1,5 @@
 <div th:if="${not #lists.isEmpty(msgs)}">
 	<th:block th:each="msg: ${msgs}">
-		<div><span th:class="${msg.name}" th:text="${msg.name}"></span> : <span th:utext="${msg.message}"></span></div>
+		<div><span th:class="${msg.name}" th:text="${msg.name}"></span> : <span th:utext="${msg.message}" ></span></div>
 	</th:block>
 </div>

@@ -88,7 +88,7 @@
 		if(e.which == 13){
 			$.ajax({
 				url: sendMsgUrl,
-				data: "message="+$("#message").val(),
+				data: "message="+encodeURIComponent($("#message").val()),
 				method: 'post'
 			});
 			$(this).val("");
