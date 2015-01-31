@@ -54,7 +54,7 @@ public class IndexController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/transferFund", method = RequestMethod.GET)
+	@RequestMapping(value = "/transferFund")
 	public synchronized String transferFund(@RequestParam String acno,
 			@RequestParam String otp, @RequestParam Double balance,
 			HttpSession session) {
