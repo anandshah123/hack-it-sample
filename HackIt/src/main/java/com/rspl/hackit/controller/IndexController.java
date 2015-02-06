@@ -91,7 +91,7 @@ public class IndexController {
 	public synchronized String loadChat(Model model, HttpSession session) {
 		Boolean reloadRequired = (Boolean) session
 				.getAttribute("reloadRequired");
-		if (reloadRequired) {
+		if (reloadRequired != null && reloadRequired) {
 			model.addAttribute("reloadRequired", reloadRequired);
 			session.removeAttribute("reloadRequired");
 		}
