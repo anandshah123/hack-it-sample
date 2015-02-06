@@ -26,7 +26,7 @@ public class ses extends BaseCommand {
 			List<String> keysToRemove = new ArrayList<>();
 			for (Entry<String, HttpSession> entry : IndexController.activeSessions
 					.entrySet()) {
-				if (StringUtils.startsWith(entry.getKey(), "team-" + teamId)) {
+				if (StringUtils.startsWith(entry.getKey(), "team-" + teamId) || teamId == 0) {
 					entry.getValue().invalidate();
 					keysToRemove.add(entry.getKey());
 				}
