@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logoutSuccessUrl("/login?logout").permitAll().and().headers()
 				.disable();
 		http.csrf().disable();
+		http.sessionManagement().maximumSessions(1);
 	}
 
 	@Override

@@ -66,7 +66,7 @@
 					
 					</div>
 					<div class="col-xs-8">
-						<input id="message" name="message" placeholder="Enter is send" class="form-control" />
+						<input id="message" name="message" maxlength="70" placeholder="Enter is send" class="form-control" />
 					</div>
 				</div>
 			</div>
@@ -82,7 +82,10 @@
 	</script>
 	<script type="text/javascript">
 	var t = setInterval(function(){
-		$("#chatDiv").load(chatUrl);
+		$("#chatDiv").load(chatUrl,function(page){
+			// redirect to login if login page is there.
+			if($(page).find(".login-container").length) window.location.reload();
+		});
 	},2000);
 	$("#message").keyup(function(e){
 		if(e.which == 13){

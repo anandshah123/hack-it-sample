@@ -32,6 +32,10 @@ public class IndexController {
 			put("team-3", 10000d);
 			put("team-4", 10000d);
 			put("team-5", 10000d);
+			put("team-6", 10000d);
+			put("team-7", 10000d);
+			// put("team-8", 10000d);
+			// put("team-9", 10000d);
 		}
 	};
 
@@ -59,6 +63,7 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/transferFund")
+	// , method = RequestMethod.POST)
 	public synchronized String transferFund(@RequestParam String acno,
 			@RequestParam String otp, @RequestParam Double balance,
 			HttpSession session) {
@@ -100,8 +105,8 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/sendMsg", method = RequestMethod.POST)
-	public synchronized @ResponseBody
-	String sendMsg(@RequestParam String message, HttpSession session) {
+	public synchronized @ResponseBody String sendMsg(
+			@RequestParam String message, HttpSession session) {
 		SecurityContext context = (SecurityContext) session
 				.getAttribute("SPRING_SECURITY_CONTEXT");
 		User user = (User) context.getAuthentication().getPrincipal();

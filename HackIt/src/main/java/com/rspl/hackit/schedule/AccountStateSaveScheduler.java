@@ -34,7 +34,7 @@ public class AccountStateSaveScheduler {
 
 	}
 
-	@Scheduled(fixedDelay = 7000)
+	@Scheduled(fixedDelay = 5000)
 	public void saveStateToFileSystem() throws IOException {
 		Map<String, Double> balMap = new ConcurrentHashMap<String, Double>(
 				IndexController.userToBalance);
