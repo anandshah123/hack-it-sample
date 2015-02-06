@@ -1,9 +1,6 @@
-<script th:inline="javascript">
+<script th:if="${reloadRequired}" th:inline="javascript">
 		/*<![CDATA[*/
-			var reloadRequired =  /*[[${reloadRequired}]]*/ false;
-			if(reloadRequired){
-				window.location.reload();
-			}
+			window.location.reload();
 		/*]]>*/
 </script>
 <div th:if="${not #lists.isEmpty(msgs)}">

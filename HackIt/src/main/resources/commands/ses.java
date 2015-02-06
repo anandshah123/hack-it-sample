@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
@@ -21,10 +23,17 @@ public class ses extends BaseCommand {
 					"reload" }) String reload) {
 		if (kill != null) {
 			int teamId = NumberUtils.toInt(kill);
+			List<String> keysToRemove = new ArrayList<>();
 			for (Entry<String, HttpSession> entry : IndexController.activeSessions
 					.entrySet()) {
 				if (StringUtils.startsWith(entry.getKey(), "team-" + teamId)) {
 					entry.getValue().invalidate();
+					keysToRemove.add(entry.getKey());
+				}
+			}
+			if(!keysToRemove.isEmpty()) {
+				for (String key : keysToRemove) {
+					IndexController.activeSessions.remove(key);
 				}
 			}
 		}
