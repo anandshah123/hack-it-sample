@@ -35,16 +35,20 @@ public class IndexController {
 		}
 	};
 
+	public static final Map<String, HttpSession> activeSessions = new ConcurrentHashMap<>();
+
 	public static final EvictingQueue<Message> mq = EvictingQueue.create(20);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(HttpSession session, Model model) {
 		SecurityContext context = (SecurityContext) session
 				.getAttribute("SPRING_SECURITY_CONTEXT");
+
 		User user = (User) context.getAuthentication().getPrincipal();
 		model.addAttribute("user", user);
 		model.addAttribute("balance", userToBalance.get(user.getUsername()));
-
+		activeSessions.put(user.getUsername() + " - " + session.getId(),
+				session);
 		model.addAttribute(
 				"acno",
 				user.getUsername().substring(
@@ -84,14 +88,20 @@ public class IndexController {
 	}
 
 	@RequestMapping(value = "/loadChat", method = RequestMethod.GET)
-	public synchronized String loadChat(Model model) {
+	public synchronized String loadChat(Model model, HttpSession session) {
+		Boolean reloadRequired = (Boolean) session
+				.getAttribute("reloadRequired");
+		if (reloadRequired) {
+			model.addAttribute("reloadRequired", reloadRequired);
+			session.removeAttribute("reloadRequired");
+		}
 		model.addAttribute("msgs", mq);
 		return "chat";
 	}
 
 	@RequestMapping(value = "/sendMsg", method = RequestMethod.POST)
-	public synchronized @ResponseBody String sendMsg(
-			@RequestParam String message, HttpSession session) {
+	public synchronized @ResponseBody
+	String sendMsg(@RequestParam String message, HttpSession session) {
 		SecurityContext context = (SecurityContext) session
 				.getAttribute("SPRING_SECURITY_CONTEXT");
 		User user = (User) context.getAuthentication().getPrincipal();

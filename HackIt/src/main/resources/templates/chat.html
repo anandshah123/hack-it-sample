@@ -1,3 +1,11 @@
+<script th:inline="javascript">
+		/*<![CDATA[*/
+			var reloadRequired =  /*[[${reloadRequired}]]*/ false;
+			if(reloadRequired){
+				window.location.reload();
+			}
+		/*]]>*/
+</script>
 <div th:if="${not #lists.isEmpty(msgs)}">
 	<th:block th:each="msg: ${msgs}">
 		<div><span th:class="${msg.name}" th:text="${msg.name}"></span> : <span th:utext="${msg.message}" ></span></div>
